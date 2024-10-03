@@ -42,7 +42,6 @@ defmodule KookoffWeb do
         layouts: [html: KookoffWeb.Layouts]
 
       import Plug.Conn
-      import KookoffWeb.Gettext
 
       unquote(verified_routes())
     end
