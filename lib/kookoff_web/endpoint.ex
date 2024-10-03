@@ -47,5 +47,14 @@ defmodule KookoffWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug KookoffWeb.Router
+
+  if Mix.env() == :dev do
+    plug Absinthe.Plug.GraphiQL,
+      path: "/graphiql",
+      schema: KookoffWeb.Schema,
+      interface: :simple
+  else
+    plug Absinthe.Plug,
+      schema: KookoffWeb.Schema
+  end
 end

@@ -6,8 +6,8 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :kookoff, Kookoff.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "test",
+  password: "test",
   hostname: "localhost",
   database: "kookoff_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,

@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :kookoff, Kookoff.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "test",
+  password: "test",
   hostname: "localhost",
   database: "kookoff_dev",
   stacktrace: true,
