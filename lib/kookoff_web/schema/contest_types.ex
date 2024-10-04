@@ -7,5 +7,13 @@ defmodule KookoffWeb.Schema.ContestTypes do
     field :title, non_null(:string)
     field :description, :string
     field :start_time, non_null(:datetime)
+    field :image_url, :string
+  end
+
+  input_object :contest_input do
+    field :title, non_null(:string)
+    field :description, :string
+    field :start_time, non_null(:datetime)
+    field :image, :upload
   end
 end
