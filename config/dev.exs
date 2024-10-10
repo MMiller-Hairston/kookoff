@@ -50,7 +50,7 @@ config :kookoff, KookoffWeb.Endpoint,
 # different ports.
 
 # Enable dev routes for dashboard and mailbox
-config :kookoff, dev_routes: true
+config :kookoff, dev_routes: false
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

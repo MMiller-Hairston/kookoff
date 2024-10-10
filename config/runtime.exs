@@ -20,6 +20,12 @@ if System.get_env("PHX_SERVER") do
   config :kookoff, KookoffWeb.Endpoint, server: true
 end
 
+config :aws,
+  region: System.get_env("AWS_REGION", "us-west-2"),
+  access_key: System.get_env("AWS_ACCESS_KEY", "local-access-key"),
+  secret_key: System.get_env("AWS_SECRET_KEY", "local-secret-key"),
+  contest_bucket: System.get_env("CONTEST_BUCKET", "co-media")
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
