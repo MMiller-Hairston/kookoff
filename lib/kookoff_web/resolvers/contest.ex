@@ -8,18 +8,26 @@ defmodule KookoffWeb.Resolvers.Contest do
     {:ok, Contests.list_contests()}
   end
 
+  defp create_key(filename) do
+    ext = Path.extname(filename)
+
+    current_time = DateTime.utc_now()
+
+    (:crypto.hash(
+       :md5,
+       DateTime.to_string(current_time) <>
+         "_" <>
+         (filename
+          |> Path.basename(ext))
+     )
+     |> Base.encode16()
+     |> String.downcase()) <> ext
+  end
+
   def create_contest(_parent, args, _resolution) do
     bucket = Application.get_env(:aws, :contest_bucket)
-    ext = Path.extname(args.contest.image.filename)
 
-    key =
-      (:crypto.hash(
-         :md5,
-         args.contest.image.filename
-         |> Path.basename(ext)
-       )
-       |> Base.encode16()
-       |> String.downcase()) <> ext
+    key = create_key(args.contest.image.filename)
 
     file = File.read!(args.contest.image.path)
 
@@ -35,7 +43,7 @@ defmodule KookoffWeb.Resolvers.Contest do
 
       error ->
         Logger.error("Unable to insert image into bucket: #{inspect(error)}")
-        error
+        {:error, message: "Unable to create contest"}
     end
   end
 end
